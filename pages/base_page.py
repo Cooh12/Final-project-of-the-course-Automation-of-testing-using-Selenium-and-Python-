@@ -2,6 +2,7 @@ from selenium.common.exceptions import NoAlertPresentException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators, MainPageLocators
+from selenium.webdriver.common.by import By
 
 import math
 
@@ -59,19 +60,8 @@ class BasePage():
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
-
-    def should_be_basket_page(self):
-        self.go_to_basket_page()
-        self.should_not_be_basket_is_empty()
-        self.should_text_that_the_basket_is_empty()
-        
-    def go_to_basket_page(self):
-        login_link = self.browser.find_element(*MainPageLocators.BASKET_LINK)
-        login_link.click() 
     
-    def should_not_be_basket_is_empty(self):
-        basket_items = self.is_not_element_present(*MainPageLocators.BASKET_IS_EMPTY)
 
-    def should_text_that_the_basket_is_empty(self):
-        text_basket_is_empty = self.is_element_present(*MainPageLocators.TEXT_THAT_THE_BASKET_IS_EMPTY)
-    
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                 " probably unauthorised user"
